@@ -1,0 +1,91 @@
+spin_manifest_version = 2
+
+[application]
+name = "image-repo"
+version = "0.1.0"
+authors = ["Christian Speckner <christian.speckner@mayflower.de>"]
+description = ""
+
+[variables]
+max_age_seconds = { default = "60" }
+
+###############################################################################
+
+[[trigger.http]]
+route = "/transform"
+component = "transformer"
+
+[component.transformer]
+source = "transformer/main.wasm"
+allowed_outbound_hosts = []
+
+[component.transformer.build]
+command = "tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm ."
+workdir = "transformer"
+watch = ["**/*.go", "go.mod"]
+
+###############################################################################
+
+[[trigger.http]]
+route = "/init"
+component = "init"
+
+[component.init]
+source = "init/app.wasm"
+sqlite_databases = ["default"]
+
+[component.init.build]
+command = "componentize-py -w spin-http componentize app -o app.wasm"
+workdir = "init"
+watch = ["*.py", "requirements.txt"]
+
+###############################################################################
+
+[[trigger.http]]
+route = "/originals/..."
+component = "originals"
+
+[component.originals]
+source = "originals/dist/originals.wasm"
+sqlite_databases = ["default"]
+allowed_outbound_hosts = ["http://self", "https://self"]
+
+[component.originals.build]
+command = "npm install && npm run build"
+workdir = "originals"
+watch = ["index.ts"]
+
+###############################################################################
+
+[[trigger.http]]
+route = "/derived/..."
+component = "derived"
+
+[component.derived]
+source = "derived/main.wasm"
+sqlite_databases = ["default"]
+allowed_outbound_hosts = ["http://self", "https://self"]
+
+[component.derived.build]
+command = "tinygo build -target=wasip1 -gc=leaking -buildmode=c-shared -no-debug -o main.wasm ."
+workdir = "derived"
+watch = ["**/*.go", "go.mod"]
+
+###############################################################################
+
+[[trigger.cron]]
+component = "maintenance"
+cron_expression = "1/30 * * * * *"
+
+[component.maintenance]
+source = "maintenance/target/wasm32-wasip1/release/maintenance.wasm"
+allowed_outbound_hosts = []
+sqlite_databases = ["default"]
+
+[component.maintenance.build]
+command = "cargo build --target wasm32-wasip1 --release"
+workdir = "maintenance"
+watch = ["src/**/*.rs", "Cargo.toml"]
+
+[component.maintenance.variables]
+max_age_seconds = "{{max_age_seconds}}"

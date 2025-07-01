@@ -1,0 +1,815 @@
+{
+	"info": {
+		"_postman_id": "f8a3b4c5-d6e7-8f9a-0b1c-2d3e4f5a6b7c",
+		"name": "Image Repository API",
+		"description": "A collection for interacting with the Image Repository microservice-based system for storing, transforming, and serving images.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Originals Service",
+			"description": "Manages original image uploads and retrieval",
+			"item": [
+				{
+					"name": "Get All Original Images Metadata",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/originals",
+							"host": ["{{baseUrl}}"],
+							"path": ["originals"]
+						},
+						"description": "Returns metadata for all original images."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/originals",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"originals\": [\n    {\n      \"name\": \"example\",\n      \"created\": 1656789012,\n      \"length\": 12345\n    }\n  ]\n}"
+							}
+						}
+					]
+				},
+				{
+					"name": "Get All Original Images Metadata (Alias)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/originals/meta",
+							"host": ["{{baseUrl}}"],
+							"path": ["originals", "meta"]
+						},
+						"description": "Alias for GET /originals. Returns metadata for all original images."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/originals/meta",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", "meta"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"originals\": [\n    {\n      \"name\": \"example\",\n      \"created\": 1656789012,\n      \"length\": 12345\n    }\n  ]\n}"
+							}
+						}
+					]
+				},
+				{
+					"name": "Get Specific Original Image Metadata",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/originals/meta/:name",
+							"host": ["{{baseUrl}}"],
+							"path": ["originals", "meta", ":name"],
+							"variable": [
+								{
+									"key": "name",
+									"value": "example",
+									"description": "Image identifier"
+								}
+							]
+						},
+						"description": "Returns metadata for a specific original image."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/originals/meta/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", "meta", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "example"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"name\": \"example\",\n  \"created\": 1656789012,\n  \"length\": 12345\n}"
+							}
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/originals/meta/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", "meta", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "nonexistent"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"reason\": \"Not found\"\n}"
+							}
+						}
+					]
+				},
+				{
+					"name": "Upload Original Image",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{baseUrl}}/originals/:name",
+							"host": ["{{baseUrl}}"],
+							"path": ["originals", ":name"],
+							"variable": [
+								{
+									"key": "name",
+									"value": "example",
+									"description": "Image identifier (must contain only letters, digits, and ., -, _)"
+								}
+							]
+						},
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": null
+							},
+							"description": "Binary image data (PNG or JPEG)"
+						},
+						"description": "Uploads a new original image."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "POST",
+								"url": {
+									"raw": "{{baseUrl}}/originals/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "example"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"name\": \"example\",\n  \"created\": 1656789012,\n  \"length\": 12345\n}"
+							}
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"url": {
+									"raw": "{{baseUrl}}/originals/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "invalid@name"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"reason\": \"invalid name: only letters, digits, and . - _ are allowed\"\n}"
+							}
+						},
+						{
+							"name": "Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"url": {
+									"raw": "{{baseUrl}}/originals/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "example"
+										}
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"reason\": \"duplicate\"\n}"
+							}
+						}
+					]
+				},
+				{
+					"name": "Get Original Image",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/originals/:name",
+							"host": ["{{baseUrl}}"],
+							"path": ["originals", ":name"],
+							"variable": [
+								{
+									"key": "name",
+									"value": "example",
+									"description": "Image identifier"
+								}
+							]
+						},
+						"description": "Retrieves an original image."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/originals/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "example"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "binary",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "image/png"
+								}
+							],
+							"body": {
+								"mode": "file",
+								"file": {
+									"src": null
+								}
+							}
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/originals/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "nonexistent"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"reason\": \"Not found\"\n}"
+							}
+						}
+					]
+				},
+				{
+					"name": "Delete Original Image",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/originals/:name",
+							"host": ["{{baseUrl}}"],
+							"path": ["originals", ":name"],
+							"variable": [
+								{
+									"key": "name",
+									"value": "example",
+									"description": "Image identifier"
+								}
+							]
+						},
+						"description": "Deletes an original image and all its derived versions."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "DELETE",
+								"url": {
+									"raw": "{{baseUrl}}/originals/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "example"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{}"
+							}
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"url": {
+									"raw": "{{baseUrl}}/originals/:name",
+									"host": ["{{baseUrl}}"],
+									"path": ["originals", ":name"],
+									"variable": [
+										{
+											"key": "name",
+											"value": "nonexistent"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"reason\": \"Not found\"\n}"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Derived Service",
+			"description": "Handles transformed image retrieval and caching",
+			"item": [
+				{
+					"name": "Get Derived Image",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/derived/:name?width={{width}}&height={{height}}&type={{type}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["derived", ":name"],
+							"query": [
+								{
+									"key": "width",
+									"value": "{{width}}",
+									"description": "Desired width (1-50000)",
+									"disabled": false
+								},
+								{
+									"key": "height",
+									"value": "{{height}}",
+									"description": "Desired height (1-50000)",
+									"disabled": false
+								},
+								{
+									"key": "type",
+									"value": "{{type}}",
+									"description": "Output format (image/png or image/jpeg, default: image/png)",
+									"disabled": false
+								}
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "example",
+									"description": "Original image identifier"
+								}
+							]
+						},
+						"description": "Retrieves a transformed version of an image. If the transformed version doesn't exist, it will be created and cached."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/derived/:name?width=800&height=600&type=image/jpeg",
+									"host": ["{{baseUrl}}"],
+									"path": ["derived", ":name"],
+									"query": [
+										{
+											"key": "width",
+											"value": "800"
+										},
+										{
+											"key": "height",
+											"value": "600"
+										},
+										{
+											"key": "type",
+											"value": "image/jpeg"
+										}
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "example"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "binary",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "image/jpeg"
+								}
+							],
+							"body": {
+								"mode": "file",
+								"file": {
+									"src": null
+								}
+							}
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/derived/:name?width=100000&height=600",
+									"host": ["{{baseUrl}}"],
+									"path": ["derived", ":name"],
+									"query": [
+										{
+											"key": "width",
+											"value": "100000"
+										},
+										{
+											"key": "height",
+											"value": "600"
+										}
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "example"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"reason\": \"must be a positive integer between 1 and 50000\"\n}"
+							}
+						},
+						{
+							"name": "Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/derived/:name?width=800&height=600",
+									"host": ["{{baseUrl}}"],
+									"path": ["derived", ":name"],
+									"query": [
+										{
+											"key": "width",
+											"value": "800"
+										},
+										{
+											"key": "height",
+											"value": "600"
+										}
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "nonexistent"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"reason\": \"Not found\"\n}"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transformer Service",
+			"description": "Performs image transformations",
+			"item": [
+				{
+					"name": "Transform Image",
+					"request": {
+						"method": "POST",
+						"url": {
+							"raw": "{{baseUrl}}/transform?width={{width}}&height={{height}}&type={{type}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["transform"],
+							"query": [
+								{
+									"key": "width",
+									"value": "{{width}}",
+									"description": "Desired width (positive integer)",
+									"disabled": false
+								},
+								{
+									"key": "height",
+									"value": "{{height}}",
+									"description": "Desired height (positive integer)",
+									"disabled": false
+								},
+								{
+									"key": "type",
+									"value": "{{type}}",
+									"description": "Output format (image/png or image/jpeg, default: image/png)",
+									"disabled": false
+								}
+							]
+						},
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": null
+							},
+							"description": "Binary image data (PNG or JPEG)"
+						},
+						"description": "Transforms an image according to the specified parameters."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "POST",
+								"url": {
+									"raw": "{{baseUrl}}/transform?width=800&height=600&type=image/jpeg",
+									"host": ["{{baseUrl}}"],
+									"path": ["transform"],
+									"query": [
+										{
+											"key": "width",
+											"value": "800"
+										},
+										{
+											"key": "height",
+											"value": "600"
+										},
+										{
+											"key": "type",
+											"value": "image/jpeg"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "binary",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "image/jpeg"
+								}
+							],
+							"body": {
+								"mode": "file",
+								"file": {
+									"src": null
+								}
+							}
+						},
+						{
+							"name": "Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"url": {
+									"raw": "{{baseUrl}}/transform?width=-100&height=600",
+									"host": ["{{baseUrl}}"],
+									"path": ["transform"],
+									"query": [
+										{
+											"key": "width",
+											"value": "-100"
+										},
+										{
+											"key": "height",
+											"value": "600"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "{\n  \"reason\": \"Invalid width parameter: value must be positive\"\n}"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Init Service",
+			"description": "Initializes the database schema",
+			"item": [
+				{
+					"name": "Initialize Database",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/init",
+							"host": ["{{baseUrl}}"],
+							"path": ["init"]
+						},
+						"description": "Initializes the database schema."
+					},
+					"response": [
+						{
+							"name": "Successful Response",
+							"originalRequest": {
+								"method": "GET",
+								"url": {
+									"raw": "{{baseUrl}}/init",
+									"host": ["{{baseUrl}}"],
+									"path": ["init"]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"body": {
+								"mode": "raw",
+								"raw": "init complete"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"description": "Base URL for the Image Repository API"
+		},
+		{
+			"key": "width",
+			"value": "800",
+			"description": "Default width for image transformations"
+		},
+		{
+			"key": "height",
+			"value": "600",
+			"description": "Default height for image transformations"
+		},
+		{
+			"key": "type",
+			"value": "image/png",
+			"description": "Default output format for image transformations"
+		}
+	]
+}

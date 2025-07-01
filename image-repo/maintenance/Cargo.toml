@@ -1,0 +1,17 @@
+[package]
+name = "maintenance"
+authors = ["Christian Speckner <christian.speckner@mayflower.de>"]
+description = ""
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.78"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+spin-sdk = "3.0.1"
+spin-cron-sdk = { git = "https://github.com/fermyon/spin-trigger-cron/" }
+anyhow = "1.0.98"
+
+[workspace]
