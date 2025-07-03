@@ -123,3 +123,15 @@ graph TD
    - The transformed result is cached for future requests
 4. All components share the same SQLite database for persistence
 5. The Maintenance component periodically cleans up unused derived images to prevent database bloat
+
+## Image Handling
+
+### Supported Image Types
+- **Input Formats:** The system supports JPEG and PNG input formats
+- **Output Formats:** Transformed images can be delivered as either PNG or JPEG, controlled by the `type` parameter
+- **Default Format:** If no output format is specified, PNG is used as the default
+
+### Image Type Autodetection
+- The Transformer component automatically detects input image formats using Go's `image.DecodeConfig()` function
+- Format detection happens before image decoding, examining the file's binary signature
+- If an unsupported format is detected (anything other than JPEG or PNG), an appropriate error is returned
