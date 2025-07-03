@@ -1,6 +1,6 @@
 # What is this?
 
-This is the example project for our Workshop
+This is the example project for our workshop
 "Running Web Assembly on the Cloud with Fermyon Spin".
 
 The example application is an image repository. Images are uploaded to
@@ -59,7 +59,7 @@ another language):
 
 * [Rust + Cargo](https://www.rust-lang.org/tools/install) (best installed via `rustup`)
 * The WASM/WASI target installed for rust: `rustup target add wasm32-wasip1`
-* [Tinygo](https://tinygo.org/getting-started/install/) 0.18.0
+* [Tinygo](https://tinygo.org/getting-started/install/) 0.38.0
 * [NodeJS](https://nodejs.org/en/download) 22
 * Python + `requirements.txt` installed via PIP (go for a venv if you value your
   Python installation)
